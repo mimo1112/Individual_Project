@@ -12,6 +12,8 @@ In order to improve the chatbot experience, the following features have been imp
 | Sentiment Analysis Tools | This new implementation of sentiment analysis using NLTK analyzes the user’s input and calculates a positive or negative sentiment score. Using this score, the chatbot can then determine what type of response to reply with. For example,  a negative sentiment score will trigger the chatbot to ask a specific question. Whereas with a positive sentiment score, the chatbot will respond with an open-ended question since the user is in a healthy headspace. ![Imgur](https://i.imgur.com/0Omlh6r.png) |
 | Better Similarity Recognition | The implementation of spaCy - USE further improves the chatbot’s sentence comparison feature. This allows the chatbot to provide better, more accurate, responses to the user’s input. ![Imgur](https://i.imgur.com/1KzO11o.png) |
 
+| Google Translation Implementation | Translate parts of the conversation into another language. This feature allows a greater population to join in and use the bot ![Imjur}(https://imgur.com/a/e84smvI) |
+
 # How to Run
 In order to run the chatbot, you must install NLTK, NLTK Data, and spaCy - Universal Sentence Encoder onto your computer before proceeding.
 
