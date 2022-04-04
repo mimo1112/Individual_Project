@@ -11,7 +11,7 @@ In order to improve the chatbot experience, the following features have been imp
 | Synonym Recognition | This new implementation of synonym recognition using NLTK allows the chatbot to accept a wider range of responses, rather than being restricted to the vocabulary used in the database. ![Imgur](https://i.imgur.com/ZGy1LOv.png) |
 | Sentiment Analysis Tools | This new implementation of sentiment analysis using NLTK analyzes the user’s input and calculates a positive or negative sentiment score. Using this score, the chatbot can then determine what type of response to reply with. For example,  a negative sentiment score will trigger the chatbot to ask a specific question. Whereas with a positive sentiment score, the chatbot will respond with an open-ended question since the user is in a healthy headspace. ![Imgur](https://i.imgur.com/0Omlh6r.png) |
 | Better Similarity Recognition | The implementation of spaCy - USE further improves the chatbot’s sentence comparison feature. This allows the chatbot to provide better, more accurate, responses to the user’s input. ![Imgur](https://i.imgur.com/1KzO11o.png) |
-| Implementing Google Translation | This implentation will translate part of the conversation into another language. This allows the chatbot to be of use by a greater number of people ![Imgur](https://i.imgur.com/OyNxCmQ.png)) |
+| Implementing Google Translation | This implentation will translate part of the conversation into another language. This allows the chatbot to be of use by a greater number of people ![Imgur](https://i.imgur.com/OyNxCmQ.png) |
 
 # How to Run
 In order to run the chatbot, you must install NLTK, NLTK Data, and spaCy - Universal Sentence Encoder onto your computer before proceeding.
@@ -63,3 +63,5 @@ A unit test, containing 25 tests, meant to test the robustness of SimilarityOfTw
 A unit test, containing 20 tests, meant to test the robustness of SynonymRecognition.py
 - **TokenizeWithoutPunctuation:**
 A class with a single method. The method, tokenize_without_punctuation, takes in a String. The method utilizes NLTK's RegexpTokenizer to tokenize the inputted String. When invoking NLTK's RegexpTokenizer, a list is returned with the tokenized content. Said list from NLTK is returned.
+- **translateSentence:**
+- This is a class with a single function. This class is the Google Translate API that takes in a string a translates the string into Korean.
