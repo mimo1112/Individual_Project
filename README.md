@@ -23,9 +23,6 @@ pip install wolframalpha into the command line
 
 Once all of these have been installed, clone the Github repository and run the mainGUI class.
 
-# Explanations of classes/files:
-![](program_flowchart.png)
-
 - **translateSentence:**
 - This is a class with a single function. This class is the Google Translate API that takes in a string a translates the string into Korean. Implemented this by translating parts of the conversation into Korean. 
 - **wolframAlpha:**
