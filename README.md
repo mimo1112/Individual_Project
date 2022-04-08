@@ -7,7 +7,7 @@ In order to improve the chatbot experience, for the Individual Project the follo
 | ---------- | ----------------------------------------------------------------------- |
 | Implementing Google Translation | This implentation will translate part of the conversation into another language. This allows the chatbot to be of use by a greater number of people ![Imgur](https://i.imgur.com/OyNxCmQ.png) |
 | Implementing the wolframAlpha API| Implementing this API opens up the conversation; however, it is still restricted to what wolframAlpha can answer, you no longer need to only ask questions that are in the database. ![Imgur](https://i.imgur.com/qUP1nmb.png) As you can see, you can ask both questions that are and are not in the database |
-| Implementation of the Wikipedia API | This implementation will allow the program to provide a link with more information on the question they are helping the user with. ![Imgur]([Imgur](https://i.imgur.com/5sfIUDr.png))
+| Implementation of the Wikipedia API | This implementation will allow the program to provide a link with more information on the question they are helping the user with. ![Imgur]([Imgur](https://i.imgur.com/5sfIUDr.png) |
 
 # How to Run
 In order to run the chatbot, you must install NLTK, NLTK Data, and spaCy - Universal Sentence Encoder onto your computer before proceeding.
