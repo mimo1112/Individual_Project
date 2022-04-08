@@ -7,6 +7,8 @@ from DatabaseToList import DatabaseToList
 from BotSentimentResponse import BotSentimentResponse
 from SpellingMistakes import SpellingMistakes
 from translateSentence import translateSentence
+from WolframAlpha import wolframAlpha
+from WikiSearch import WikiSearch
 #import's spacy data to significantly speed up the program
 from SentencePOSTagger import SentencePOSTagger
 import spacy_universal_sentence_encoder
@@ -87,7 +89,7 @@ class mainGUI:
         self.update()
 
         #Begin the conversation between bot and user
-        self.messageLog.append([GreetMessage.greetMessage()+translateSentence.trans_sentence(GreetMessage.greetMessage()),"bot"])
+        self.messageLog.append([translateSentence.trans_sentence(GreetMessage.greetMessage()),"bot"])
         
         #Create the window loop
         self.window.mainloop()
@@ -100,17 +102,14 @@ class mainGUI:
             self.typeEntry.delete(0,tk.END)
             spelledCorrect, wordSpelledIncorrect = SpellingMistakes.spelling_mistakes(userInput)
             if(not userInput.replace(' ','').isalpha()):
-                self.messageLog.append(["Please try again, remember to use only letters."+translateSentence.trans_sentence("Please try again, remember to use only letters."),"bot"])
-           
+                self.messageLog.append([wolframAlpha.wolfram_alpha(userInputSentence)+" , Anything else?","bot"])
             elif(len(userInput.split()) != 1):
                 self.messageLog.append(["Please try again, remember to only use one word for the greeting."+translateSentence.trans_sentence("Please try again, remember to only use one word for the greeting."),"bot"])
-
             elif(not spelledCorrect):
-                self.messageLog.append(["Please try again, there were spelling mistakes."+translateSentence.trans_sentence("Please try again, there were spelling mistakes."),"bot"])
-                self.messageLog.append([f"The misspelled word(s) was: {wordSpelledIncorrect}"+translateSentence.trans_sentence(f"The misspelled word(s) was: {wordSpelledIncorrect}"),"bot"])
+                self.messageLog.append([wolframAlpha.wolfram_alpha(userInputSentence),"bot"])
+                self.messageLog.append(["Here is a useful link with more information "+WikiSearch.find_wiki(wolframAlpha.wolfram_alpha(userInputSentence))+" , Anything else?","bot"])
             else:
                 self.messageLog.append([GettingStarted.gettingStarted()+translateSentence.trans_sentence(GettingStarted.gettingStarted()),"bot"])
-                
                 self.conState = 1
         elif self.conState == 1:
             userInputSentence = self.typeEntry.get()
@@ -118,12 +117,12 @@ class mainGUI:
             self.typeEntry.delete(0,tk.END)
             spelledCorrect, wordSpelledIncorrect = SpellingMistakes.spelling_mistakes(userInputSentence)
             if((not userInputSentence.replace(' ','').isalpha())):
-                self.messageLog.append(["Please try again, remember to use only letters."+translateSentence.trans_sentence("Please try again, remember to use only letters."),"bot"])
+                self.messageLog.append(["The answer to your math question is: "+wolframAlpha.wolfram_alpha(userInputSentence)+" , Anything else?","bot"])
             elif (len(userInputSentence) == 0):
                 self.messageLog.append(["Nothing was entered, please try again. Remember to use only letters."+translateSentence.trans_sentence("Nothing was entered, please try again. Remember to use only letters."),"bot"])
             elif (not spelledCorrect):
-                self.messageLog.append(["Please try again, there were spelling mistakes."+translateSentence.trans_sentence("Please try again, there were spelling mistakes."),"bot"])
-                self.messageLog.append([f"The misspelled word(s) was: {wordSpelledIncorrect}"+translateSentence.trans_sentence(f"The misspelled word(s) was: {wordSpelledIncorrect}"),"bot"])
+                self.messageLog.append([wolframAlpha.wolfram_alpha(userInputSentence),"bot"])
+                self.messageLog.append(["Here is a useful link with more information "+WikiSearch.find_wiki(wolframAlpha.wolfram_alpha(userInputSentence))+" , Anything else?","bot"])
             elif(len(userInputSentence.split())<=1):
                 self.messageLog.append([GoodbyeMessage.goodbyeMessage()+translateSentence.trans_sentence(GoodbyeMessage.goodbyeMessage()),"bot"])
                 self.typeFrame.destroy()
@@ -131,21 +130,16 @@ class mainGUI:
             else:
                 botAnswer,correctnessValue,spaCyUsedInBotRespons = BotRespons.bot_respons(userInputSentence,databaseInList,nlp)
                 if (spaCyUsedInBotRespons and (correctnessValue <= 0.8)):
-                    self.messageLog.append(["I am sorry, I cannot understand that sentence. Could you say it a little more simply please?"+translateSentence.trans_sentence("I am sorry, I cannot understand that sentence. Could you say it a little more simply please?"),"bot"])
+                    self.messageLog.append([wolframAlpha.wolfram_alpha(userInputSentence)+" , Anything else?","bot"])
                 elif ((not spaCyUsedInBotRespons) and (correctnessValue > 1 or correctnessValue <= (1/2))):
-                    self.messageLog.append(["I am sorry, I cannot understand that sentence. Could you say it a little more simply please?"+translateSentence.trans_sentence("I am sorry, I cannot understand that sentence. Could you say it a little more simply please?"),"bot"])
+                    self.messageLog.append([wolframAlpha.wolfram_alpha(userInputSentence)+" , Anything else?","bot"])
                 else:
                     if "?" in botAnswer:
                         self.messageLog.append([f"{botAnswer}"+translateSentence.trans_sentence(f"{botAnswer}"),"bot"])
-                        
                     else:
                         question, self.questionsAsked = BotSentimentResponse.bot_sentiment_response(userInputSentence, self.questionsAsked)
                         print(f"Bot: {botAnswer} {question}")
                         self.messageLog.append([f"{botAnswer} {question}","bot"])
-                print(f"spaCy Used: {spaCyUsedInBotRespons}")
-                print(f"POS tags: {SentencePOSTagger.sentence_pos_tagger(userInputSentence)}")
-                print(f"Highest Value: {correctnessValue}")
-                print(f"Questions Asked: {self.questionsAsked}")
                 correctnessValue = 0
 
     #Function to close the window
@@ -173,6 +167,6 @@ class mainGUI:
         #Disable the textbox
         self.mainBox.configure(state='disabled')
         #Call the update again after 100ms
-        self.window.after(100,self.update)
+        self.window.after(10,self.update)
 
 mainGUI()
