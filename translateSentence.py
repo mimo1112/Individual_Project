@@ -7,6 +7,5 @@ class translateSentence:
         translator = Translator()
         #googletrans.LANGUAGES LANGCODES
         translation = translator.translate(sentence_to_translate, dest="ko")
-        #print(f"{translation.origin} ({translation.src}) --> {translation.text} ({translation.dest})")
         return translation.text
 
